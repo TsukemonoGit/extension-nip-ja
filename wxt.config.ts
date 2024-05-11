@@ -10,6 +10,9 @@ export default defineConfig({
     plugins: [Solid()],
   }),
   manifest: {
+    name: "extension-nips-ja",
+    short_name: "nips-ja",
+    description: "NOSTRのNIP公式へのリンクをnip-jaに飛ばす",
     permissions: ["storage"],
   },
 });
