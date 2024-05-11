@@ -12,7 +12,7 @@ export default defineConfig({
   manifest: {
     name: "extension-nips-ja",
     short_name: "nips-ja",
-    description: "NOSTRのNIP公式へのリンクをnip-jaに飛ばす",
+    description: "nostr nips ling nostr-jp",
     permissions: ["storage"],
   },
 });
