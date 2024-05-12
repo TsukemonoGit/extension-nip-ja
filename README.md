@@ -16,7 +16,7 @@ zip を解凍してパッケージ化されていない拡張機能を読み込�
 
 firefox では読み込めないﾅｧ
 
-#### firefox (Developer Edition か Nightly でしか未検証アドオンはインストールできないらしい)
+### firefox (Developer Edition か Nightly でしか未検証アドオンはインストールできないらしい)
 
 - zip にする前に、build した firefox 用の manifest.json に
 
