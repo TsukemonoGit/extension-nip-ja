@@ -1,7 +1,6 @@
 import { storage } from "wxt/storage";
 export default defineContentScript({
-  matches: ["<all_urls>"],
-  exclude: ["*://*github*"],
+  matches: ["https://*/*", "http://*/*"],
 
   main() {
     // ページがロードされたときにonPageLoad関数を呼び出す
@@ -12,6 +11,13 @@ export default defineContentScript({
 
       const target = event.target as HTMLElement;
       if (target.tagName !== "A") {
+        return;
+      }
+      const currentUrl = window.location.href;
+      const isGitHubUrl = currentUrl.includes("github.com");
+
+      if (isGitHubUrl) {
+        // 現在のページがGitHubの場合はスキップして元のページに飛ばす
         return;
       }
       event.preventDefault(); // デフォルトのリンク遷移を防止
