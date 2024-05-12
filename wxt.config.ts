@@ -12,7 +12,7 @@ export default defineConfig({
   manifest: {
     name: "extension-nips-ja",
     short_name: "nips-ja",
-    description: "nostr nips ling nostr-jp",
+    description: "nostr nips link to nostr-jp",
     permissions: ["storage"],
   },
 });
