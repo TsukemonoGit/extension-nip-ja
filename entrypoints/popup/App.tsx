@@ -17,7 +17,7 @@ function App() {
 
   const handleAddNumber = () => {
     const number = parseInt(inputValue());
-    if (!isNaN(number)) {
+    if (!isNaN(number) && !list().includes(number)) {
       setList([...list(), number]); // 新しい配列を作成して追加
       setInputValue(""); // 入力フィールドをリセット
     }
