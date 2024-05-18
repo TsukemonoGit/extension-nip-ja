@@ -1,10 +1,11 @@
 import { storage } from "wxt/storage";
+
 export default defineContentScript({
   matches: ["https://*/*", "http://*/*"],
 
   main() {
     async function modifyElement(target: Element) {
-      const href = target.getAttribute("href"); // ここで要素の内容を変更
+      const href = target.getAttribute("href");
 
       const numberMatch = href?.match(
         /https:\/\/github\.com\/nostr-protocol\/nips\/blob\/master\/(\d+)\.md/
@@ -27,15 +28,27 @@ export default defineContentScript({
       }
     }
 
+    // すべてのリンクを処理
+    function processLinks() {
+      const links = document.querySelectorAll("a");
+      links.forEach((link) => {
+        modifyElement(link);
+      });
+    }
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === Node.ELEMENT_NODE) {
-            // Node.ELEMENT_NODE
-            const targetElement = (node as Element).querySelector("A");
-            if (targetElement) {
-              modifyElement(targetElement);
+            const element = node as Element;
+            // 新しく追加された要素自体をチェック
+            if (element.tagName === "A") {
+              modifyElement(element);
             }
+            // 追加された要素の子要素を再帰的にチェック
+            element.querySelectorAll("a").forEach((link) => {
+              modifyElement(link);
+            });
           }
         });
       });
@@ -50,13 +63,10 @@ export default defineContentScript({
         subtree: true,
       });
 
-      // ページの初期ロード時にもチェック
-      document.addEventListener("DOMContentLoaded", () => {
-        const targetElement = document.querySelector("A");
-        if (targetElement) {
-          modifyElement(targetElement);
-        }
-      });
+      // ページの初期ロード時にすべてのリンクをチェック
+      document.addEventListener("DOMContentLoaded", processLinks);
+      // 初期ロード後もすぐにすべてのリンクをチェック
+      processLinks();
     }
   },
 });
