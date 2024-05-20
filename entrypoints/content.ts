@@ -15,13 +15,13 @@ export default defineContentScript({
 
       if (href && numberMatch) {
         const number = parseInt(numberMatch[1]);
-        console.log(number);
+        //  console.log(number);
 
         // ストレージから除外リストを取得
         const excludeList: number[] =
           (await storage.getItem<number[]>("local:ExcludeList")) || [];
 
-        console.log(excludeList);
+        //console.log(excludeList);
 
         // 除外リストに含まれていない場合にリンクを変更
         if (!excludeList.includes(number)) {
